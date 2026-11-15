@@ -16,7 +16,7 @@ This is source rather than a packaged installer. Install Electron in the reposit
 
 The current launcher contains development-PC paths for the tool directory, Electron and model. Update `$ToolDir` and `$ModelPath` in the PowerShell launcher. The custom-tool `index.js` also has a default model path and Electron search paths; supply `modelPath` or update those paths when restoring elsewhere.
 
-The model is an external Desktop file named `Meshy_AI_Obsidian_Voyager_0421201108_texture.glb`. It is **not inside the requested source folder and is not included in this backup**. Preserve that GLB separately and point the launcher to it. No model licence is supplied here.
+The model is included at `assets/Meshy_AI_Obsidian_Voyager_0421201108_texture.glb`, copied and SHA-256 verified against the working Desktop model. Point `$ModelPath` in the launcher to this file when restoring. No separate model licence is supplied here.
 
 The Electron host accepts `OBSIDIAN_VOYAGER_MODEL`, `OBSIDIAN_VOYAGER_TOOL_DIR`, `OBSIDIAN_VOYAGER_SPEED` and `OBSIDIAN_VOYAGER_SCALE`. The renderer currently loads Three.js 0.128.0 and GLTFLoader from jsDelivr, so it requires internet access.
 
