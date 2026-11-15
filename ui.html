@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; padding: 18px; background: #090915; color: #e8fbff; }
+    button { padding: 10px 14px; margin: 4px; border: 0; border-radius: 8px; background: #5b7cfa; color: white; cursor: pointer; }
+    pre { background: rgba(255,255,255,.08); padding: 12px; border-radius: 8px; white-space: pre-wrap; }
+  </style>
+  <script>const CONFIG = {{CONFIG}};</script>
+</head>
+<body>
+  <h2>Obsidian Voyager</h2>
+  <p>Starts a transparent desktop overlay where the GLB ship glides slowly around your screen.</p>
+  <button onclick="run('start')">Start Voyager</button>
+  <button onclick="run('stop')">Stop Voyager</button>
+  <button onclick="run('status')">Status</button>
+  <pre id="out">Ready.</pre>
+  <script>
+    let reqId = 0;
+    const pending = new Map();
+    function send(type, options = {}) {
+      return new Promise((resolve) => {
+        const id = `r${++reqId}_${Date.now()}`;
+        pending.set(id, resolve);
+        window.parent.postMessage({ type, requestId: id, options }, '*');
+      });
+    }
+    window.addEventListener('message', e => {
+      if (e.data && e.data.requestId && pending.has(e.data.requestId)) {
+        pending.get(e.data.requestId)(e.data);
+        pending.delete(e.data.requestId);
+      }
+    });
+    async function run(action) {
+      document.getElementById('out').textContent = 'Running ' + action + '…';
+      const res = await send('CUSTOM_TOOL_EXECUTE', { toolPath: CONFIG.toolDir, args: { mode: 'headless', action } });
+      document.getElementById('out').textContent = typeof res === 'string' ? res : JSON.stringify(res, null, 2);
+    }
+  </script>
+</body>
+</html>

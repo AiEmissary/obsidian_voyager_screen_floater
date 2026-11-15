@@ -1,0 +1,15 @@
+{
+  "name": "obsidian_voyager",
+  "description": "Launches the Obsidian Voyager GLB as a slow transparent desktop overlay. Headless actions: start, stop, status, info. Use the tray icon / notification area right-click menu to close when finished.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "mode": { "type": "string", "enum": ["headless", "ui"], "default": "headless" },
+      "action": { "type": "string", "enum": ["start", "stop", "status", "info"], "default": "start" },
+      "modelPath": { "type": "string", "description": "Optional GLB path override." },
+      "speed": { "type": "number", "default": 1, "description": "Leisurely flight speed multiplier." },
+      "scale": { "type": "number", "default": 2, "description": "Model scale multiplier." }
+    },
+    "required": []
+  }
+}

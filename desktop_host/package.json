@@ -1,0 +1,6 @@
+{
+  "name": "obsidian_voyager_desktop_host",
+  "version": "1.0.0",
+  "description": "Transparent desktop overlay host for Obsidian Voyager.",
+  "main": "main.js"
+}
